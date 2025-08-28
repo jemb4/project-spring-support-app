@@ -8,7 +8,7 @@ public class HomeController {
 
   @GetMapping("")
   public String index() {
-    return "Hello, Spring Boot!";
+    return "Welcome to the support API from Spring Boot!";
   }
 
 }
