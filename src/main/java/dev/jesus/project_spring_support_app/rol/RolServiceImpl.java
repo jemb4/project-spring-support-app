@@ -3,11 +3,14 @@ package dev.jesus.project_spring_support_app.rol;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import dev.jesus.project_spring_support_app.implementations.IGenericService;
 import dev.jesus.project_spring_support_app.rol.dtos.RolDTORequest;
 import dev.jesus.project_spring_support_app.rol.dtos.RolDTOResponse;
 import dev.jesus.project_spring_support_app.rol.mappers.RolMapper;
 
+@Service
 public class RolServiceImpl implements IGenericService<RolDTOResponse, RolDTORequest> {
 
   private RolRepository repository;
@@ -33,6 +36,12 @@ public class RolServiceImpl implements IGenericService<RolDTOResponse, RolDTOReq
     RolEntity rol = RolMapper.toEntity(rolDTORequest);
     RolEntity rolStored = repository.save(rol);
     return RolMapper.toDTO(rolStored);
+  }
+
+  public RolDTOResponse getEntityById(long id) {
+    return repository.findById((long) id)
+        .map(RolMapper::toDTO)
+        .orElse(null);
   }
 
 }
