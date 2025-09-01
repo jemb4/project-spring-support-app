@@ -14,7 +14,7 @@ public class RolEntityTest {
 
   @BeforeEach
   void setUp() {
-    rol = new RolEntity(1L, "user");
+    rol = new RolEntity(1L, "support");
   }
 
   @Test
@@ -22,14 +22,14 @@ public class RolEntityTest {
 
     assertThat(rol, is(instanceOf(RolEntity.class)));
     assertThat(rol.getClass().getDeclaredFields().length, is(equalTo(2)));
-    assertThat(rol.getName(), is(equalTo("user")));
+    assertThat(rol.getName(), is(equalTo("support")));
   }
 
   @Test
   void testRolEntity() {
     rol.setId(2L);
-    rol.setName("user2");
+    rol.setName("employee");
     assertThat(rol.getId(), is(equalTo(2L)));
-    assertThat(rol.getName(), is(equalTo("user2")));
+    assertThat(rol.getName(), is(equalTo("employee")));
   }
 }
