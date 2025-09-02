@@ -1,15 +1,21 @@
 package dev.jesus.project_spring_support_app.user;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import dev.jesus.project_spring_support_app.request.RequestEntity;
 import dev.jesus.project_spring_support_app.rol.RolEntity;
 import dev.jesus.project_spring_support_app.user.builder.UserEntityBuilder;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,6 +33,10 @@ public class UserEntity {
   @ManyToOne
   @JoinColumn(name = "rol_id")
   private RolEntity rol;
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+  private List<RequestEntity> requests;
 
   public UserEntity() {
   }
@@ -66,4 +76,13 @@ public class UserEntity {
   public static UserEntityBuilder builder() {
     return new UserEntityBuilder();
   }
+
+  public List<RequestEntity> getRequests() {
+    return requests;
+  }
+
+  public void setRequests(List<RequestEntity> requests) {
+    this.requests = requests;
+  }
+
 }

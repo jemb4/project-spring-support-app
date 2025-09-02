@@ -1,9 +1,14 @@
 package dev.jesus.project_spring_support_app.topic;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import dev.jesus.project_spring_support_app.request.RequestEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,6 +21,11 @@ public class TopicEntity {
 
   String name;
   String description;
+
+  @JsonBackReference
+  @ManyToOne
+  @JoinColumn(name = "topic_id")
+  private TopicEntity topic;
 
   public TopicEntity() {
   }
@@ -48,6 +58,14 @@ public class TopicEntity {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public TopicEntity getTopic() {
+    return topic;
+  }
+
+  public void setTopic(TopicEntity topic) {
+    this.topic = topic;
   }
 
 }

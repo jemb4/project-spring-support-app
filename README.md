@@ -17,7 +17,6 @@ users ||--|{ request : ask
 request {
   long id PK
   date request_date
-  string topic
   string description
   boolean is_assisted
   long user_id FK
