@@ -2,6 +2,7 @@ Ejemplo:
 
 ```mermaid
 erDiagram
+users ||--|{assists : help
 users {
   long id PK
   string name

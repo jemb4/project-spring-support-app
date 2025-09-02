@@ -2,10 +2,7 @@ package dev.jesus.project_spring_support_app.assist;
 
 import java.time.LocalDate;
 
-import org.springframework.cglib.core.Local;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import dev.jesus.project_spring_support_app.request.RequestEntity;
 import dev.jesus.project_spring_support_app.user.UserEntity;

@@ -21,7 +21,7 @@ public class RolEntityTest {
   void testRolEntity_InitializationWithIdAndName() {
 
     assertThat(rol, is(instanceOf(RolEntity.class)));
-    assertThat(rol.getClass().getDeclaredFields().length, is(equalTo(2)));
+    assertThat(rol.getClass().getDeclaredFields().length, is(equalTo(3)));
     assertThat(rol.getName(), is(equalTo("support")));
   }
 
