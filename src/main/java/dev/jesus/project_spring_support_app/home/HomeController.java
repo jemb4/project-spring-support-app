@@ -8,7 +8,14 @@ public class HomeController {
 
   @GetMapping("")
   public String index() {
-    return "Welcome to the support API from Spring Boot!";
+
+    String response = """
+        Welcome to the support API from Spring Boot!
+        If you want to search in the API you can look for:
+        users: api...
+        """;
+
+    return response;
   }
 
 }
