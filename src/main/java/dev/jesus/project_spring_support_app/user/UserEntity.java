@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import dev.jesus.project_spring_support_app.assist.AssistEntity;
 import dev.jesus.project_spring_support_app.request.RequestEntity;
 import dev.jesus.project_spring_support_app.rol.RolEntity;
 import dev.jesus.project_spring_support_app.user.builder.UserEntityBuilder;
@@ -37,6 +38,10 @@ public class UserEntity {
   @JsonManagedReference
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
   private List<RequestEntity> requests;
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+  private List<AssistEntity> assists;
 
   public UserEntity() {
   }
@@ -83,6 +88,14 @@ public class UserEntity {
 
   public void setRequests(List<RequestEntity> requests) {
     this.requests = requests;
+  }
+
+  public List<AssistEntity> getAssists() {
+    return assists;
+  }
+
+  public void setAssists(List<AssistEntity> assists) {
+    this.assists = assists;
   }
 
 }

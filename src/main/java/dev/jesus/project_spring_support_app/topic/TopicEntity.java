@@ -2,7 +2,6 @@ package dev.jesus.project_spring_support_app.topic;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import dev.jesus.project_spring_support_app.request.RequestEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
