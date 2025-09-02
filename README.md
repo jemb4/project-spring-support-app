@@ -34,6 +34,7 @@ topic ||--|{ request : has
 topic {
   long id PK
   string name
+  srting description
 }
 ```
 
