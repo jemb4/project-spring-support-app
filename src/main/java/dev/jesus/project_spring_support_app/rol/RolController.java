@@ -31,8 +31,6 @@ public class RolController {
   @GetMapping("/{id}")
   public ResponseEntity<RolDTOResponse> SingleRol(@PathVariable("id") long id) {
     RolDTOResponse rol = service.getEntityById(id);
-    if (rol == null)
-      return ResponseEntity.notFound().build();
 
     return ResponseEntity.ok(rol);
   }

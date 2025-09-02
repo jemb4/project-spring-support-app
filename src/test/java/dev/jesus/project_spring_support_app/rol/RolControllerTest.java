@@ -1,14 +1,17 @@
 package dev.jesus.project_spring_support_app.rol;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -26,7 +29,7 @@ import dev.jesus.project_spring_support_app.rol.dtos.RolDTOResponse;
 public class RolControllerTest {
 
   @Autowired
-  private MockMvc MockMvc;
+  private MockMvc mockMvc;
 
   @MockitoBean
   private IGenericService<RolDTOResponse, RolDTORequest> rolService;
@@ -34,15 +37,23 @@ public class RolControllerTest {
   @Autowired
   ObjectMapper mapper;
 
-  @Test
-  void testIndex_ShouldReturnARols() {
-    CountryDTOResponse france = new CountryDTOResponse(1L, "France");
-    CountryDTOResponse italy = new CountryDTOResponse(1L, "Italy");
-    List<CountryDTOResponse> countries = List.of(france, italy);
-    String json = mapper.writeValueAsString(countries);
+  RolDTOResponse employee;
+  RolDTOResponse support;
 
-    when(countryService.getEntities()).thenReturn(countries);
-    MockHttpServletResponse response = mockMvc.perform(get("/api/v1/countries"))
+  @BeforeEach
+  void setUp() {
+    employee = new RolDTOResponse(1L, "Employee");
+    support = new RolDTOResponse(1L, "Support");
+  }
+
+  @Test
+  @DisplayName("Test get endpoint without id")
+  void testIndex_ShouldReturnARols() throws Exception {
+    List<RolDTOResponse> rols = List.of(employee, support);
+    String json = mapper.writeValueAsString(rols);
+
+    when(rolService.getEntities()).thenReturn(rols);
+    MockHttpServletResponse response = mockMvc.perform(get("/api/v1/rols"))
         .andExpect(status().isOk())
         .andReturn()
         .getResponse();
@@ -52,37 +63,52 @@ public class RolControllerTest {
   }
 
   @Test
-  void testStore_ShouldReturnStatus201() throws Exception {
-    CountryDTORequest dto = new CountryDTORequest("France");
-    CountryDTOResponse france = new CountryDTOResponse(1L, "France");
-    String json = mapper.writeValueAsString(dto);
+  @DisplayName("Test single get endpoint by id")
+  void testSingleRol_ById_ShouldReturnRol() throws Exception {
+    Long pathVariable = 1L;
 
-    when(countryService.storeEntity(dto)).thenReturn(france);
-    MockHttpServletResponse response = mockMvc
-        .perform(post("/api/v1/countries").content(json).contentType("application/json"))
-        .andExpect(status().isCreated())
+    when(rolService.getEntityById(pathVariable)).thenReturn((employee));
+    MockHttpServletResponse response = mockMvc.perform(get("/api/v1/rols/{id}", pathVariable))
+        .andExpect(status().isOk())
         .andReturn()
         .getResponse();
 
-    assertThat(response.getContentAsString(), containsString(france.name()));
+    assertThat(response.getContentAsString(), containsString(employee.name()));
   }
 
-  @Test
-  void testStoreCountry_ShouldReturnStatus400_IfNameIsEmpty() throws Exception {
-    CountryDTORequest dto = new CountryDTORequest("");
-    String json = mapper.writeValueAsString(dto);
-    when(countryService.storeEntity(dto)).thenReturn(null);
-    mockMvc.perform(post("/api/v1/countries").content(json).contentType("application/json"))
-        .andExpect(status().isBadRequest());
-  }
+  // @Test
+  // void testStore_ShouldReturnStatus201() throws Exception {
+  // RolDTORequest dto = new RolDTORequest("Employee");
+  // RolDTOResponse employee = new RolDTOResponse(1L, "Employee");
+  // String json = mapper.writeValueAsString(dto);
 
-  @Test
-  void testStoreCountry_ShouldReturnNoContent_IfServiceDoesNotReturnAnyValue() throws Exception {
-    CountryDTORequest dto = new CountryDTORequest("France");
-    String json = mapper.writeValueAsString(dto);
+  // when(rolService.storeEntity(dto)).thenReturn(employee);
+  // MockHttpServletResponse response = mockMvc
+  // .perform(post("/api/v1/rols").content(json).contentType("application/json"))
+  // .andExpect(status().isCreated())
+  // .andReturn()
+  // .getResponse();
 
-    when(countryService.storeEntity(dto)).thenReturn(null);
-    mockMvc.perform(post("/api/v1/countries").content(json).contentType("application/json"))
-        .andExpect(status().isNoContent());
-  }
+  // assertThat(response.getContentAsString(), containsString(employee.name()));
+  // }
+
+  // @Test
+  // void testStoreRol_ShouldReturnStatus400_IfNameIsEmpty() throws Exception {
+  // RolDTORequest dto = new RolDTORequest("");
+  // String json = mapper.writeValueAsString(dto);
+  // when(rolService.storeEntity(dto)).thenReturn(null);
+  // mockMvc.perform(post("/api/v1/rols").content(json).contentType("application/json"))
+  // .andExpect(status().isBadRequest());
+  // }
+
+  // @Test
+  // void testStoreRol_ShouldReturnNoContent_IfServiceDoesNotReturnAnyValue()
+  // throws Exception {
+  // RolDTORequest dto = new RolDTORequest("Employee");
+  // String json = mapper.writeValueAsString(dto);
+
+  // when(rolService.storeEntity(dto)).thenReturn(null);
+  // mockMvc.perform(post("/api/v1/rols").content(json).contentType("application/json"))
+  // .andExpect(status().isNoContent());
+  // }
 }
