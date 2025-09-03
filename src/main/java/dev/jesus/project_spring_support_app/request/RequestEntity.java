@@ -29,7 +29,7 @@ public class RequestEntity {
 
   LocalDate request_date;
   String description;
-  boolean is_assisted;
+  boolean assisted;
 
   @JsonBackReference
   @ManyToOne
@@ -48,12 +48,12 @@ public class RequestEntity {
   public RequestEntity() {
   }
 
-  public RequestEntity(Long id, String description, boolean is_assisted, UserEntity user,
+  public RequestEntity(Long id, String description, UserEntity user,
       TopicEntity topic) {
     this.id = id;
     setRequest_date(LocalDate.now());
+    setAssisted(false);
     this.description = description;
-    this.is_assisted = is_assisted;
     this.user = user;
     this.topic = topic;
   }
@@ -82,12 +82,12 @@ public class RequestEntity {
     this.description = description;
   }
 
-  public boolean isIs_assisted() {
-    return is_assisted;
+  public boolean is_assisted() {
+    return assisted;
   }
 
-  public void setIs_assisted(boolean is_assisted) {
-    this.is_assisted = is_assisted;
+  public void setAssisted(boolean assisted) {
+    this.assisted = assisted;
   }
 
   public UserEntity getUser() {
