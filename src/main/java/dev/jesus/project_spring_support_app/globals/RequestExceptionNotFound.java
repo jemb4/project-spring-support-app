@@ -7,6 +7,6 @@ public class RequestExceptionNotFound extends RequestException {
   }
 
   public RequestExceptionNotFound() {
-    super("La solicitud no fue encontrada");
+    super("Request not founded.");
   }
 }
