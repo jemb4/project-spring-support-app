@@ -18,7 +18,7 @@ INSERT INTO topics (id, name, description) VALUES (default, 'Blue Screen', 'A Bl
 -- Insert requests --
 ---------------------
 INSERT INTO requests (id, request_date, description, assisted, user_id, topic_id) 
-VALUES (default, '2024-01-15', 'El equipo muestra pantalla azul al iniciar Windows', false, 1, 1);
+VALUES (default, '2025-01-15', 'El equipo muestra pantalla azul al iniciar Windows', false, 1, 1);
 
 INSERT INTO requests (id, request_date, description, assisted, user_id, topic_id) 
 VALUES (default, '2024-01-10', 'Pantalla azul después de actualizar controladores', true, 1, 1);

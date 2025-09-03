@@ -24,8 +24,8 @@ public class RequestMapper {
     RequestDTOResponse dtoResponse = new RequestDTOResponse(
         request.getId(),
         request.getDescription(),
-        request.getUser(),
-        request.getTopic(),
+        request.getUser().getName(),
+        request.getTopic().getName(),
         request.is_assisted(),
         request.getRequest_date());
 
