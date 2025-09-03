@@ -24,7 +24,7 @@ public class RequestServiceImpl implements IGenericService<RequestDTOResponse, R
   public List<RequestDTOResponse> getEntities() {
     List<RequestDTOResponse> requests = new ArrayList<>();
 
-    repository.findAll().forEach(c -> {
+    repository.findAllByOrderByDateAsc().forEach(c -> {
       RequestDTOResponse request = RequestMapper.toDTO(c);
       requests.add(request);
     });

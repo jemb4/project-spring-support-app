@@ -1,13 +1,16 @@
 package dev.jesus.project_spring_support_app.topic;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import dev.jesus.project_spring_support_app.request.RequestEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,10 +24,9 @@ public class TopicEntity {
   String name;
   String description;
 
-  @JsonBackReference
-  @ManyToOne
-  @JoinColumn(name = "topic_id")
-  private TopicEntity topic;
+  @OneToMany(mappedBy = "topic", fetch = FetchType.LAZY)
+  @JsonManagedReference
+  private List<RequestEntity> requests;
 
   public TopicEntity() {
   }
@@ -59,12 +61,12 @@ public class TopicEntity {
     this.description = description;
   }
 
-  public TopicEntity getTopic() {
-    return topic;
+  public List<RequestEntity> getRequests() {
+    return requests;
   }
 
-  public void setTopic(TopicEntity topic) {
-    this.topic = topic;
+  public void setRequests(List<RequestEntity> requests) {
+    this.requests = requests;
   }
 
 }
