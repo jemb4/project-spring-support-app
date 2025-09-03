@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import dev.jesus.project_spring_support_app.globals.RequestExceptionNotFound;
 import dev.jesus.project_spring_support_app.implementations.IGenericService;
 import dev.jesus.project_spring_support_app.request.dtos.RequestDTORequest;
 import dev.jesus.project_spring_support_app.request.dtos.RequestDTOResponse;
 import dev.jesus.project_spring_support_app.request.mappers.RequestMapper;
-import dev.jesus.project_spring_support_app.rol.mappers.RolMapper;
 
 @Service
 public class RequestServiceImpl implements IGenericService<RequestDTOResponse, RequestDTORequest> {
@@ -40,8 +40,8 @@ public class RequestServiceImpl implements IGenericService<RequestDTOResponse, R
   }
 
   public RequestDTOResponse getEntityById(long id) {
-    return repository.findById((long) id)
-        .map(RequestMapper::toDTO)
-        .orElse(null);
+    RequestEntity request = repository.findById(id)
+        .orElseThrow(() -> new RequestExceptionNotFound("Request with id" + id + "not found."));
+    return RequestMapper.toDTO(request);
   }
 }
