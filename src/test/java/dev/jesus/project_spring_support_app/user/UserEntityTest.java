@@ -8,22 +8,16 @@ import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import dev.jesus.project_spring_support_app.assist.AssistEntity;
-import dev.jesus.project_spring_support_app.request.RequestEntity;
 import dev.jesus.project_spring_support_app.rol.RolEntity;
 
 public class UserEntityTest {
 
   private UserEntity user;
   private RolEntity employee;
-  private AssistEntity assist;
-  private RequestEntity request;
 
   @BeforeEach
   void setUp() {
     employee = new RolEntity(1L, "Employee");
-    assist = new AssistEntity();
-    request = new RequestEntity(1L, "test", false, user, null);
 
     user = UserEntity.builder()
         .id(1L)
@@ -45,13 +39,12 @@ public class UserEntityTest {
 
   @Test
   void testRolEntity() {
+
     user.setId(2L);
     user.setName("Peter");
     user.setSurname("Mar");
-    user.setAssists(assist);
-    user.setRequests(request);
     assertThat(user.getId(), is(equalTo(2L)));
     assertThat(user.getName(), is(equalTo("Peter")));
-    assertThat(user.getName(), is(equalTo("Mar")));
+    assertThat(user.getSurname(), is(equalTo("Mar")));
   }
 }
