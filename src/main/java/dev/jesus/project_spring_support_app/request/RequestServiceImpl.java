@@ -10,18 +10,23 @@ import dev.jesus.project_spring_support_app.implementations.IGenericService;
 import dev.jesus.project_spring_support_app.request.dtos.RequestDTORequest;
 import dev.jesus.project_spring_support_app.request.dtos.RequestDTOResponse;
 import dev.jesus.project_spring_support_app.request.mappers.RequestMapper;
+import dev.jesus.project_spring_support_app.topic.TopicEntity;
+import dev.jesus.project_spring_support_app.topic.TopicRepository;
 import dev.jesus.project_spring_support_app.user.UserEntity;
-import dev.jesus.project_spring_support_app.user.UserRepository;
+import dev.jesus.project_spring_support_app.user.UserServiceImpl;
 
 @Service
 public class RequestServiceImpl implements IGenericService<RequestDTOResponse, RequestDTORequest> {
 
   private RequestRepository requestRepository;
-  private UserRepository userRepository;
-  private RequestRepository topicRepository;
+  private UserServiceImpl userService;
+  private TopicRepository topicRepository;
 
-  public RequestServiceImpl(RequestRepository requestRepository) {
+  public RequestServiceImpl(RequestRepository requestRepository, UserServiceImpl userService,
+      TopicRepository topicRepository) {
     this.requestRepository = requestRepository;
+    this.userService = userService;
+    this.topicRepository = topicRepository;
   }
 
   @Override
@@ -38,9 +43,13 @@ public class RequestServiceImpl implements IGenericService<RequestDTOResponse, R
 
   @Override
   public RequestDTOResponse storeEntity(RequestDTORequest dtoRequest) {
-    UserEntity user = 
-    RequestEntity request = RequestMapper.toEntity(dtoRequest); // enviar user y topic
+    UserEntity user = userService.getUserEntityById(dtoRequest.user_id());
+    TopicEntity topic = topicRepository.findById(dtoRequest.topic_id())
+        .orElseThrow(() -> new RequestExceptionNotFound("Topic with id " + dtoRequest.topic_id() + " not exist."));
+
+    RequestEntity request = RequestMapper.toEntity(dtoRequest, user, topic);
     RequestEntity requestStored = requestRepository.save(request);
+
     return RequestMapper.toDTO(requestStored);
   }
 

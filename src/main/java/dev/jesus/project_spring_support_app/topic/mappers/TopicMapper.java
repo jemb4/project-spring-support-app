@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import dev.jesus.project_spring_support_app.topic.dtos.TopicDTORequest;
 import dev.jesus.project_spring_support_app.topic.dtos.TopicDTOResponse;
 import dev.jesus.project_spring_support_app.topic.TopicEntity;
-import dev.jesus.project_spring_support_app.user.UserEntity;
 
 @Component
 public class TopicMapper {

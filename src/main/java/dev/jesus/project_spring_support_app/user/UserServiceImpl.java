@@ -15,6 +15,10 @@ public class UserServiceImpl implements IGenericService<UserDTOResponse, UserDTO
 
   private UserRepository repository;
 
+  public UserServiceImpl(UserRepository repository) {
+    this.repository = repository;
+  }
+
   @Override
   public List<UserDTOResponse> getEntities() {
     List<UserDTOResponse> users = new ArrayList<>();
@@ -39,6 +43,11 @@ public class UserServiceImpl implements IGenericService<UserDTOResponse, UserDTO
     return repository.findById((long) id)
         .map(UserMapper::toDTO)
         .orElse(null);
+  }
+
+  public UserEntity getUserEntityById(Long id) {
+    return repository.findById(id)
+        .orElseThrow(() -> new RuntimeException("User with id " + id + " not found"));
   }
 
 }

@@ -13,7 +13,7 @@ import dev.jesus.project_spring_support_app.user.dtos.UserDTORequest;
 import dev.jesus.project_spring_support_app.user.dtos.UserDTOResponse;
 
 @RestController
-@RequestMapping(path = "${api-endpoint}/rols")
+@RequestMapping(path = "${api-endpoint}/users")
 public class UserController {
 
   private final IGenericService<UserDTOResponse, UserDTORequest> service;
