@@ -12,10 +12,6 @@ import dev.jesus.project_spring_support_app.globals.RequestExceptionNotFound;
 import dev.jesus.project_spring_support_app.implementations.IGenericService;
 import dev.jesus.project_spring_support_app.request.RequestEntity;
 import dev.jesus.project_spring_support_app.request.RequestServiceImpl;
-import dev.jesus.project_spring_support_app.request.dtos.RequestDTORequest;
-import dev.jesus.project_spring_support_app.request.dtos.RequestDTOResponse;
-import dev.jesus.project_spring_support_app.request.mappers.RequestMapper;
-import dev.jesus.project_spring_support_app.topic.TopicEntity;
 import dev.jesus.project_spring_support_app.user.UserEntity;
 import dev.jesus.project_spring_support_app.user.UserServiceImpl;
 
@@ -59,7 +55,7 @@ public class AssistServiceImpl implements IGenericService<AssistDTOResponse, Ass
   @Override
   public AssistDTOResponse getEntityById(Long id) {
     AssistEntity assist = repository.findById(id)
-        .orElseThrow(() -> new RequestExceptionNotFound("Request with id " + id + " not exist."));
-    return RequestMapper.toDTO(assist);
+        .orElseThrow(() -> new RequestExceptionNotFound("Assist with id " + id + " not exist."));
+    return AssistMapper.toDTO(assist);
   }
 }

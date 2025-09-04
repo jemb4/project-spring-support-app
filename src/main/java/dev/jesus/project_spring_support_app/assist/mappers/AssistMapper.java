@@ -4,8 +4,8 @@ import org.springframework.stereotype.Component;
 
 import dev.jesus.project_spring_support_app.assist.AssistEntity;
 import dev.jesus.project_spring_support_app.assist.dtos.AssistDTORequest;
+import dev.jesus.project_spring_support_app.assist.dtos.AssistDTOResponse;
 import dev.jesus.project_spring_support_app.request.RequestEntity;
-import dev.jesus.project_spring_support_app.request.dtos.RequestDTOResponse;
 import dev.jesus.project_spring_support_app.user.UserEntity;
 
 @Component
