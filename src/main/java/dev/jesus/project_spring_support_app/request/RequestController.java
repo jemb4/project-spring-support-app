@@ -43,11 +43,11 @@ public class RequestController {
     if (dtoRequest.description().isBlank())
       return ResponseEntity.badRequest().build();
 
-    if (dtoRequest.user() == null) {
+    if (dtoRequest.user_id() == null) {
       return ResponseEntity.badRequest().build();
     }
 
-    if (dtoRequest.topic() == null) {
+    if (dtoRequest.topic_id() == null) {
       return ResponseEntity.badRequest().build();
     }
 
