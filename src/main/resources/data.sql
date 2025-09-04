@@ -33,3 +33,12 @@ VALUES (default, '2024-01-05', 'BSOD después de instalar nuevo software', true,
 
 INSERT INTO requests (id, request_date, description, assisted, user_id, topic_id) 
 VALUES (default, '2024-01-18', 'Pantalla azul aparece aleatoriamente durante el trabajo', false, 1, 1);
+
+---------------------
+-- Insert requests --
+---------------------
+INSERT INTO assists (id, assist_date, user_id, request_id) 
+VALUES (default, '2024-01-19', 2, 2);
+
+INSERT INTO assists (id, assist_date, user_id, request_id)
+VALUES (default, '2024-01-20', 2, 1);
