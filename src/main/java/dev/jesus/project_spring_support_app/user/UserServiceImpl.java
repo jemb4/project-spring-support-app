@@ -5,7 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import dev.jesus.project_spring_support_app.rol.dtos.RolDTOResponse;
+import dev.jesus.project_spring_support_app.implementations.IGenericService;
+import dev.jesus.project_spring_support_app.user.dtos.UserDTORequest;
 import dev.jesus.project_spring_support_app.user.dtos.UserDTOResponse;
 import dev.jesus.project_spring_support_app.user.mappers.UserMapper;
 
@@ -23,10 +24,21 @@ public class UserServiceImpl implements IGenericService<UserDTOResponse, UserDTO
       users.add(user);
     });
 
+    return users;
   }
 
-  public T storeEntity(S dto);
+  @Override
+  public UserDTOResponse storeEntity(UserDTORequest userDTORequest) {
+    UserEntity user = UserMapper.toEntity(userDTORequest);
+    UserEntity userStored = repository.save(user);
+    return UserMapper.toDTO(userStored);
+  }
 
-  public T getEntityById(Long id);
+  @Override
+  public UserDTOResponse getEntityById(Long id) {
+    return repository.findById((long) id)
+        .map(UserMapper::toDTO)
+        .orElse(null);
+  }
 
 }
