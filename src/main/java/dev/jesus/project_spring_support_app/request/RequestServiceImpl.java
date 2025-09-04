@@ -85,4 +85,16 @@ public class RequestServiceImpl implements IRequestService<RequestDTOResponse, R
     return RequestMapper.toDTO(request);
   }
 
+  @Override
+  public void deleteEntity(Long id) {
+    RequestEntity request = requestRepository.findById(id)
+        .orElseThrow(() -> new RequestExceptionNotFound("Request with id " + id + " not exist."));
+
+    if (!Boolean.TRUE.equals(request.is_assisted())) {
+      throw new IllegalStateException("Request with id " + id + " cannot be deleted because it is not assisted.");
+    }
+
+    requestRepository.delete(request);
+  }
+
 }
