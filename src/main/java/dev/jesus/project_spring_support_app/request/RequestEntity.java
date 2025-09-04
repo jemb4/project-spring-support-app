@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.jesus.project_spring_support_app.assist.AssistEntity;
 import dev.jesus.project_spring_support_app.topic.TopicEntity;
 import dev.jesus.project_spring_support_app.user.UserEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -42,7 +43,7 @@ public class RequestEntity {
   private TopicEntity topic;
 
   @JsonManagedReference
-  @OneToMany(mappedBy = "request", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "request", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   private List<AssistEntity> assists;
 
   public RequestEntity() {

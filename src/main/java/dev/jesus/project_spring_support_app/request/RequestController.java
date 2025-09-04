@@ -10,6 +10,7 @@ import dev.jesus.project_spring_support_app.request.dtos.RequestDTOUpdate;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,5 +69,15 @@ public class RequestController {
     RequestDTOResponse updatedRequest = service.updateEntity(id, dtoRequest);
 
     return ResponseEntity.ok(updatedRequest);
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteRequest(@PathVariable("id") Long id) {
+    try {
+      service.deleteEntity(id);
+      return ResponseEntity.noContent().build();
+    } catch (IllegalStateException e) {
+      return ResponseEntity.badRequest().build();
+    }
   }
 }
