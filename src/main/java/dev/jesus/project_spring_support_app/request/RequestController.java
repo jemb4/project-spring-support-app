@@ -3,9 +3,9 @@ package dev.jesus.project_spring_support_app.request;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.jesus.project_spring_support_app.implementations.IGenericService;
 import dev.jesus.project_spring_support_app.request.dtos.RequestDTORequest;
 import dev.jesus.project_spring_support_app.request.dtos.RequestDTOResponse;
+import dev.jesus.project_spring_support_app.request.dtos.RequestDTOUpdate;
 
 import java.util.List;
 
@@ -13,15 +13,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping(path = "${api-endpoint}/requests")
 public class RequestController {
 
-  private final IGenericService<RequestDTOResponse, RequestDTORequest> service;
+  private final IRequestService<RequestDTOResponse, RequestDTORequest> service;
 
-  public RequestController(IGenericService<RequestDTOResponse, RequestDTORequest> service) {
+  public RequestController(IRequestService<RequestDTOResponse, RequestDTORequest> service) {
     this.service = service;
   }
 
@@ -59,4 +60,13 @@ public class RequestController {
     return ResponseEntity.status(201).body(entityStored);
   }
 
+  @PutMapping("/{id}")
+  public ResponseEntity<RequestDTOResponse> updateRequest(
+      @PathVariable("id") Long id,
+      @RequestBody RequestDTOUpdate dtoRequest) {
+
+    RequestDTOResponse updatedRequest = service.updateEntity(id, dtoRequest);
+
+    return ResponseEntity.ok(updatedRequest);
+  }
 }

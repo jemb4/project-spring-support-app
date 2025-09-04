@@ -3,6 +3,7 @@ package dev.jesus.project_spring_support_app.assist;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import dev.jesus.project_spring_support_app.assist.dtos.AssistDTORequest;
@@ -23,7 +24,7 @@ public class AssistServiceImpl implements IGenericService<AssistDTOResponse, Ass
   private RequestServiceImpl requestService;
 
   public AssistServiceImpl(AssistRepository repository, UserServiceImpl userService,
-      RequestServiceImpl requestService) {
+      @Lazy RequestServiceImpl requestService) {
     this.repository = repository;
     this.userService = userService;
     this.requestService = requestService;
@@ -58,4 +59,5 @@ public class AssistServiceImpl implements IGenericService<AssistDTOResponse, Ass
         .orElseThrow(() -> new RequestExceptionNotFound("Assist with id " + id + " not exist."));
     return AssistMapper.toDTO(assist);
   }
+
 }
