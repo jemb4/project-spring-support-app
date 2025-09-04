@@ -53,9 +53,15 @@ public class RequestServiceImpl implements IGenericService<RequestDTOResponse, R
     return RequestMapper.toDTO(requestStored);
   }
 
+  @Override
   public RequestDTOResponse getEntityById(Long id) {
     RequestEntity request = requestRepository.findById(id)
         .orElseThrow(() -> new RequestExceptionNotFound("Request with id " + id + " not exist."));
     return RequestMapper.toDTO(request);
+  }
+
+  public RequestEntity getRequestEntityById(Long id) {
+    return requestRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Request with id " + id + " not found"));
   }
 }
