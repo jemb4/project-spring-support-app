@@ -38,4 +38,10 @@ topic {
 }
 ```
 
+## ER
+
 <img alt="Chen Diagram" src="assets/ER-chen-diagram.png"/>
+
+## Swagger Documentation
+
+<img alt="Swagger" src="assets/swagger.png"/>
