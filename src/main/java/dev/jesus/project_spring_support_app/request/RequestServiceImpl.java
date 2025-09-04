@@ -34,12 +34,12 @@ public class RequestServiceImpl implements IGenericService<RequestDTOResponse, R
 
   @Override
   public RequestDTOResponse storeEntity(RequestDTORequest dtoRequest) {
-    RequestEntity request = RequestMapper.toEntity(dtoRequest);
+    RequestEntity request = RequestMapper.toEntity(dtoRequest); // enviar user y topic
     RequestEntity requestStored = repository.save(request);
     return RequestMapper.toDTO(requestStored);
   }
 
-  public RequestDTOResponse getEntityById(long id) {
+  public RequestDTOResponse getEntityById(Long id) {
     RequestEntity request = repository.findById(id)
         .orElseThrow(() -> new RequestExceptionNotFound("Request with id " + id + " not exist."));
     return RequestMapper.toDTO(request);

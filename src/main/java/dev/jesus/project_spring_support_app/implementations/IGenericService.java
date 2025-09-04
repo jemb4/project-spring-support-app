@@ -8,5 +8,5 @@ public interface IGenericService<T, S> {
 
   public T storeEntity(S dto);
 
-  public T getEntityById(long id);
+  public T getEntityById(Long id);
 }

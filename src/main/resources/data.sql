@@ -8,6 +8,8 @@ INSERT INTO rols (id, name) VALUES (default, 'employee');
 -- Insert users --
 ------------------
 INSERT INTO users (id, name, surname, rol_id) VALUES (default, 'Peter', 'Doe', 1);
+INSERT INTO users (id, name, surname, rol_id) VALUES (default, 'Peter', 'Martin', 2);
+INSERT INTO users (id, name, surname, rol_id) VALUES (default, 'Miguel', 'Doe', 1);
 
 -------------------
 -- Insert topics --

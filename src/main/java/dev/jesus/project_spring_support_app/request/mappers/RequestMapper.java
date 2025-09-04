@@ -5,15 +5,17 @@ import org.springframework.stereotype.Component;
 import dev.jesus.project_spring_support_app.request.RequestEntity;
 import dev.jesus.project_spring_support_app.request.dtos.RequestDTORequest;
 import dev.jesus.project_spring_support_app.request.dtos.RequestDTOResponse;
+import dev.jesus.project_spring_support_app.topic.TopicEntity;
+import dev.jesus.project_spring_support_app.user.UserEntity;
 
 @Component
 public class RequestMapper {
 
-  public static RequestEntity toEntity(RequestDTORequest dtoRequest) {
+  public static RequestEntity toEntity(RequestDTORequest dtoRequest, UserEntity user, TopicEntity topic) {
     RequestEntity request = new RequestEntity();
     request.setDescription(dtoRequest.description());
-    request.setUser(dtoRequest.user());
-    request.setTopic(dtoRequest.topic());
+    request.setUser(user);
+    request.setTopic(topic);
     request.setAssisted(false);
     request.setRequest_date(java.time.LocalDate.now());
 

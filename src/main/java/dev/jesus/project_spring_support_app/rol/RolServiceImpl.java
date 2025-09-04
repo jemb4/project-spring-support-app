@@ -38,7 +38,7 @@ public class RolServiceImpl implements IGenericService<RolDTOResponse, RolDTOReq
     return RolMapper.toDTO(rolStored);
   }
 
-  public RolDTOResponse getEntityById(long id) {
+  public RolDTOResponse getEntityById(Long id) {
     return repository.findById((long) id)
         .map(RolMapper::toDTO)
         .orElse(null);
