@@ -45,3 +45,4 @@ topic {
 ## Swagger Documentation
 
 <img alt="Swagger" src="assets/swagger.png"/>
+http://localhost:8080/swagger-ui/index.html#/
