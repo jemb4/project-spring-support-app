@@ -75,40 +75,4 @@ public class RolControllerTest {
 
     assertThat(response.getContentAsString(), containsString(employee.name()));
   }
-
-  // @Test
-  // void testStore_ShouldReturnStatus201() throws Exception {
-  // RolDTORequest dto = new RolDTORequest("Employee");
-  // RolDTOResponse employee = new RolDTOResponse(1L, "Employee");
-  // String json = mapper.writeValueAsString(dto);
-
-  // when(rolService.storeEntity(dto)).thenReturn(employee);
-  // MockHttpServletResponse response = mockMvc
-  // .perform(post("/api/v1/rols").content(json).contentType("application/json"))
-  // .andExpect(status().isCreated())
-  // .andReturn()
-  // .getResponse();
-
-  // assertThat(response.getContentAsString(), containsString(employee.name()));
-  // }
-
-  // @Test
-  // void testStoreRol_ShouldReturnStatus400_IfNameIsEmpty() throws Exception {
-  // RolDTORequest dto = new RolDTORequest("");
-  // String json = mapper.writeValueAsString(dto);
-  // when(rolService.storeEntity(dto)).thenReturn(null);
-  // mockMvc.perform(post("/api/v1/rols").content(json).contentType("application/json"))
-  // .andExpect(status().isBadRequest());
-  // }
-
-  // @Test
-  // void testStoreRol_ShouldReturnNoContent_IfServiceDoesNotReturnAnyValue()
-  // throws Exception {
-  // RolDTORequest dto = new RolDTORequest("Employee");
-  // String json = mapper.writeValueAsString(dto);
-
-  // when(rolService.storeEntity(dto)).thenReturn(null);
-  // mockMvc.perform(post("/api/v1/rols").content(json).contentType("application/json"))
-  // .andExpect(status().isNoContent());
-  // }
 }
