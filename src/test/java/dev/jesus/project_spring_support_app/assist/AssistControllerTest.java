@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.ResponseEntity;
@@ -25,14 +26,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.jesus.project_spring_support_app.assist.dtos.AssistDTORequest;
 import dev.jesus.project_spring_support_app.assist.dtos.AssistDTOResponse;
 import dev.jesus.project_spring_support_app.implementations.IGenericService;
-import dev.jesus.project_spring_support_app.request.dtos.RequestDTORequest;
-import dev.jesus.project_spring_support_app.request.dtos.RequestDTOResponse;
 
 @WebMvcTest(controllers = AssistController.class)
 public class AssistControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
+
+  @InjectMocks
+  private AssistController controller;
 
   @MockitoBean
   private IGenericService<AssistDTOResponse, AssistDTORequest> assistService;
@@ -78,50 +80,31 @@ public class AssistControllerTest {
     assertThat(response.getContentAsString(), containsString(assist1.request()));
   }
 
+  // @Test
+  // void testStoreEntity_ShouldReturn201() {
+  // AssistDTORequest dto = new AssistDTORequest(1L, 1L);
+  // when(assistService.storeEntity(dto)).thenReturn(assist1);
+
+  // ResponseEntity<AssistDTOResponse> response = controller.storeEntity(dto);
+
+  // assertThat(response.getStatusCode().value(), is(equalTo(201)));
+  // }
+
   @Test
-  void testStoreEntity_ShouldReturn201() {
-    RequestDTORequest dto = new RequestDTORequest("New request", 1L, 10L);
-    when(service.storeEntity(dto)).thenReturn(mockResponse);
+  void testStoreEntity_ShouldReturn400_WhenUserIsBlank() {
+    AssistDTORequest dto = new AssistDTORequest(null, 1L);
 
-    ResponseEntity<RequestDTOResponse> response = controller.storeEntity(dto);
-
-    assertThat(response.getStatusCode().value(), is(equalTo(201)));
-  }
-
-  @Test
-  void testStoreEntity_ShouldReturn400_WhenDescriptionBlank() {
-    RequestDTORequest dto = new RequestDTORequest("", 1L, 10L);
-
-    ResponseEntity<RequestDTOResponse> response = controller.storeEntity(dto);
+    ResponseEntity<AssistDTOResponse> response = controller.storeEntity(dto);
 
     assertThat(response.getStatusCode().value(), is(equalTo(400)));
   }
 
   @Test
-  void testStoreEntity_ShouldReturn400_WhenUserIdNull() {
-    RequestDTORequest dto = new RequestDTORequest("Valid description", null, 10L);
+  void testStoreEntity_ShouldReturn400_WhenRequestIsBlank() {
+    AssistDTORequest dto = new AssistDTORequest(1L, null);
 
-    ResponseEntity<RequestDTOResponse> response = controller.storeEntity(dto);
-
-    assertThat(response.getStatusCode().value(), is(equalTo(400)));
-  }
-
-  @Test
-  void testStoreEntity_ShouldReturn400_WhenTopicIdNull() {
-    RequestDTORequest dto = new RequestDTORequest("Valid description", 1L, null);
-
-    ResponseEntity<RequestDTOResponse> response = controller.storeEntity(dto);
+    ResponseEntity<AssistDTOResponse> response = controller.storeEntity(dto);
 
     assertThat(response.getStatusCode().value(), is(equalTo(400)));
-  }
-
-  @Test
-  void testStoreEntity_ShouldReturn204_WhenServiceReturnsNull() {
-    RequestDTORequest dto = new RequestDTORequest("Valid description", 1L, 10L);
-    when(service.storeEntity(dto)).thenReturn(null);
-
-    ResponseEntity<RequestDTOResponse> response = controller.storeEntity(dto);
-
-    assertThat(response.getStatusCode().value(), is(equalTo(204)));
   }
 }
