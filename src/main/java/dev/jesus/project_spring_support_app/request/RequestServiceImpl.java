@@ -23,7 +23,7 @@ public class RequestServiceImpl implements IRequestService<RequestDTOResponse, R
 
   private RequestRepository requestRepository;
   private UserServiceImpl userService;
-  private TopicRepository topicRepository;
+  private TopicRepository topicRepository; // Cambiar repositorio a servicio
   private AssistServiceImpl assistService;
 
   public RequestServiceImpl(RequestRepository requestRepository, UserServiceImpl userService,

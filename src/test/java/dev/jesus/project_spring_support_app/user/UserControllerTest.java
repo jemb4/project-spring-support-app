@@ -1,4 +1,4 @@
-package dev.jesus.project_spring_support_app.rol;
+package dev.jesus.project_spring_support_app.user;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -11,7 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -22,57 +21,58 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dev.jesus.project_spring_support_app.implementations.IGenericService;
-import dev.jesus.project_spring_support_app.rol.dtos.RolDTORequest;
-import dev.jesus.project_spring_support_app.rol.dtos.RolDTOResponse;
+import dev.jesus.project_spring_support_app.user.dtos.UserDTORequest;
+import dev.jesus.project_spring_support_app.user.dtos.UserDTOResponse;
 
-@WebMvcTest(controllers = RolController.class)
-public class RolControllerTest {
+@WebMvcTest(controllers = UserController.class)
+public class UserControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
 
   @MockitoBean
-  private IGenericService<RolDTOResponse, RolDTORequest> rolService;
+  private IGenericService<UserDTOResponse, UserDTORequest> userService;
 
   @Autowired
   ObjectMapper mapper;
 
-  RolDTOResponse employee;
-  RolDTOResponse support;
+  UserDTOResponse user1;
+  UserDTOResponse user2;
 
   @BeforeEach
   void setUp() {
-    employee = new RolDTOResponse(1L, "Employee");
-    support = new RolDTOResponse(1L, "Support");
+    user1 = new UserDTOResponse(1L, "User1", "Surname", "employee");
+    user2 = new UserDTOResponse(2L, "User2", "Surname", "employee");
   }
 
   @Test
-  @DisplayName("Test get endpoint without id")
-  void testIndex_ShouldReturnARols() throws Exception {
-    List<RolDTOResponse> rols = List.of(employee, support);
-    String json = mapper.writeValueAsString(rols);
+  void testIndex_ShouldReturnAllUsers() throws Exception {
+    List<UserDTOResponse> users = List.of(user1, user2);
+    String json = mapper.writeValueAsString(users);
 
-    when(rolService.getEntities()).thenReturn(rols);
-    MockHttpServletResponse response = mockMvc.perform(get("/api/v1/rols"))
+    when(userService.getEntities()).thenReturn(users);
+    MockHttpServletResponse response = mockMvc.perform(get("/api/v1/users"))
         .andExpect(status().isOk())
         .andReturn()
         .getResponse();
 
     assertThat(response.getStatus(), is(equalTo(200)));
     assertThat(response.getContentAsString(), is(equalTo(json)));
+
   }
 
   @Test
-  @DisplayName("Test single get endpoint by id")
-  void testSingleRol_ById_ShouldReturnRol() throws Exception {
+  void testSingleUser_ById_ShouldReturnUser() throws Exception {
     Long pathVariable = 1L;
 
-    when(rolService.getEntityById(pathVariable)).thenReturn((employee));
-    MockHttpServletResponse response = mockMvc.perform(get("/api/v1/rols/{id}", pathVariable))
+    when(userService.getEntityById(pathVariable)).thenReturn(user1);
+    MockHttpServletResponse response = mockMvc.perform(get("/api/v1/users/{id}", pathVariable))
         .andExpect(status().isOk())
         .andReturn()
         .getResponse();
 
-    assertThat(response.getContentAsString(), containsString(employee.name()));
+    assertThat(response.getContentAsString(), containsString(user1.name()));
+
   }
+
 }

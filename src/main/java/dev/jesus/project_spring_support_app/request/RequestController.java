@@ -45,13 +45,11 @@ public class RequestController {
     if (dtoRequest.description().isBlank())
       return ResponseEntity.badRequest().build();
 
-    if (dtoRequest.user_id() == null) {
+    if (dtoRequest.user_id() == null)
       return ResponseEntity.badRequest().build();
-    }
 
-    if (dtoRequest.topic_id() == null) {
+    if (dtoRequest.topic_id() == null)
       return ResponseEntity.badRequest().build();
-    }
 
     RequestDTOResponse entityStored = service.storeEntity(dtoRequest);
 
