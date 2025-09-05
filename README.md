@@ -1,4 +1,4 @@
-Ejemplo:
+Diagrama Patas de gallo:
 
 ```mermaid
 erDiagram
@@ -38,7 +38,7 @@ topic {
 }
 ```
 
-## ER
+## Diagrama ER de Chen
 
 <img alt="Chen Diagram" src="assets/ER-chen-diagram.png"/>
 
